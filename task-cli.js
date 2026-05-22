@@ -3,6 +3,7 @@ const fs = require('fs')
 
 const command = process.argv[2]
 const argument = process.argv[3]
+const description = process.argv[4]
 
 console.log('Command:', command)
 console.log('Argument:', argument)
@@ -50,11 +51,19 @@ if (command === 'add') {
         if (task.id === Number(argument)) {
             task.status = 'in-progress'
         }
-        
     })
-
     fs.writeFileSync('tasks.json', JSON.stringify(tasks, null, 2))
     console.log('Task marked as in-progress')
+} else if (command === 'update'){
+    const data = fs.readFileSync('tasks.json', 'utf-8')
+    const tasks = JSON.parse(data)
+    tasks.forEach(task => {
+        if (task.id === Number(argument)){
+            task.description = description
+        }
+    })
+    fs.writeFileSync('tasks.json', JSON.stringify(tasks, null, 2))
+    console.log('Task updated')
 } else {
     console.log('Unknown command')
 }
