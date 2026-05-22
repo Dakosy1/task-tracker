@@ -33,6 +33,28 @@ if (command === 'add') {
     const newTasks = tasks.filter(task => task.id !== Number(argument))
     fs.writeFileSync('tasks.json', JSON.stringify(newTasks, null, 2))
     console.log(`Task deleted successfully`)
+} else if (command === 'mark-done') {
+    const data = fs.readFileSync('tasks.json', 'utf-8')
+    const tasks = JSON.parse(data)
+    tasks.forEach(task => {
+        if (task.id === Number(argument)) {
+            task.status = 'done'
+        }
+    })
+    fs.writeFileSync('tasks.json', JSON.stringify(tasks, null, 2))
+    console.log('Task marked as done')
+} else if (command === "mark-in-progress") {
+    const data = fs.readFileSync('tasks.json', 'utf-8')
+    const tasks = JSON.parse(data)
+    tasks.forEach(task => {
+        if (task.id === Number(argument)) {
+            task.status = 'in-progress'
+        }
+        
+    })
+
+    fs.writeFileSync('tasks.json', JSON.stringify(tasks, null, 2))
+    console.log('Task marked as in-progress')
 } else {
     console.log('Unknown command')
 }
