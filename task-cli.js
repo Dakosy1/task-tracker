@@ -27,7 +27,12 @@ if (command === 'add') {
     tasks.forEach(task => {
         console.log(`[${task.id}] ${task.description} - ${task.status}`)
     });
-    
+} else if (command === "delete"){
+    const data = fs.readFileSync('tasks.json', 'utf-8')
+    const tasks = JSON.parse(data)
+    const newTasks = tasks.filter(task => task.id !== Number(argument))
+    fs.writeFileSync('tasks.json', JSON.stringify(newTasks, null, 2))
+    console.log(`Task deleted successfully`)
 } else {
     console.log('Unknown command')
 }
