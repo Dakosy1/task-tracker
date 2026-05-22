@@ -8,12 +8,9 @@ console.log('Command:', command)
 console.log('Argument:', argument)
 
 if (command === 'add') {
-    console.log('Добавляю задачу!')
+    const data = fs.readFileSync('tasks.json', 'utf-8')
+    const tasks = JSON.parse(data)
+    console.log(tasks)
 } else {
     console.log('Unknown command')
-}
-
-if(command === 'add') {
-    const data = fs.readFileSync('tasks.json', 'utf-8')
-    console.log(data)
 }
