@@ -21,6 +21,13 @@ if (command === 'add') {
     fs.writeFileSync('tasks.json', JSON.stringify(tasks, null, 2))
     console.log(`Task added successfully (ID: ${newTask.id})`)    
     console.log(tasks)
+} else if (command === "list"){
+    const data = fs.readFileSync('tasks.json', 'utf-8')
+    const tasks = JSON.parse(data)
+    tasks.forEach(task => {
+        console.log(`[${task.id}] ${task.description} - ${task.status}`)
+    });
+    
 } else {
     console.log('Unknown command')
 }
